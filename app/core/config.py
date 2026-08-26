@@ -43,12 +43,13 @@ class Settings(BaseSettings):
         description="Upstash Redis connection URL (rediss://...)",
     )
 
-    # Upstash Kafka (Serverless SASL_SSL)
+    # Aiven Kafka (Serverless SASL_SSL with CA Certificate)
     KAFKA_BOOTSTRAP_SERVERS: str = Field(default="", description="Kafka broker endpoints")
     KAFKA_SASL_USERNAME: str = Field(default="", description="Kafka SASL Username / Key")
     KAFKA_SASL_PASSWORD: str = Field(default="", description="Kafka SASL Password / Secret")
     KAFKA_SECURITY_PROTOCOL: str = "SASL_SSL"
     KAFKA_SASL_MECHANISM: str = "SCRAM-SHA-256"
+    KAFKA_CA_CERT: str = Field(default="", description="Aiven Kafka CA PEM Certificate")
     KAFKA_TOPIC_INGESTION: str = "doc-ingestion-events"
     KAFKA_TOPIC_MEMORY: str = "memory-extraction-events"
     KAFKA_TOPIC_DLQ: str = "dead-letter-queue"
