@@ -1,4 +1,4 @@
-# Enterprise Multi-Tenant RAG Platform with Cognitive Multi-Tier Memory
+# Event Driven Enterprise Multi-Tenant RAG Platform with Cognitive Multi-Tier Memory
  
 > An enterprise-grade, event-driven, production-ready Multi-Tenant Retrieval-Augmented Generation (RAG) platform with strict tenant data isolation, 4-tier cognitive memory architecture, layout-preserving document ingestion, serverless messaging, and multi-provider LLM failover.
 
