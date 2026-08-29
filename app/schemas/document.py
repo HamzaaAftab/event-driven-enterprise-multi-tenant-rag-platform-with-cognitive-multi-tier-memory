@@ -16,7 +16,7 @@ class DocumentBase(BaseModel):
     error_message: Optional[str] = None
     page_count: int = 0
     chunk_count: int = 0
-    metadata_info: Dict[str, Any] = Field(default_factory=dict, alias="metadata")
+    metadata_info: Dict[str, Any] = Field(default_factory=dict)
 
 
 class DocumentUploadResponse(BaseModel):
@@ -28,7 +28,7 @@ class DocumentUploadResponse(BaseModel):
 
 
 class DocumentChunkRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
+    model_config = ConfigDict(from_attributes=True)
 
     id: uuid.UUID
     document_id: uuid.UUID
@@ -38,17 +38,21 @@ class DocumentChunkRead(BaseModel):
     token_count: int
     content_preview: str
     pinecone_vector_id: str
-    metadata_info: Dict[str, Any] = Field(default_factory=dict, alias="metadata")
+    metadata_info: Dict[str, Any] = Field(default_factory=dict)
     created_at: datetime
 
 
 class DocumentRead(DocumentBase):
-    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
+    model_config = ConfigDict(from_attributes=True)
 
     id: uuid.UUID
     tenant_id: uuid.UUID
     user_id: uuid.UUID
     storage_path: str
+    signed_url: Optional[str] = None
     created_at: datetime
     updated_at: datetime
+
+
+class DocumentDetailRead(DocumentRead):
     chunks: Optional[List[DocumentChunkRead]] = None

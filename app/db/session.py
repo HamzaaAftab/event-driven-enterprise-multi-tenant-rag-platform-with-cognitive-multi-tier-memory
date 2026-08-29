@@ -28,7 +28,7 @@ if parsed.password:
 else:
     db_url = raw_db_url
 
-# Create Async Engine with production connection pool settings
+# Create Async Engine with production connection pool settings and pgbouncer compatibility
 async_engine: AsyncEngine = create_async_engine(
     db_url,
     echo=settings.DEBUG,
@@ -37,6 +37,10 @@ async_engine: AsyncEngine = create_async_engine(
     max_overflow=20,
     pool_pre_ping=True,
     pool_recycle=3600,
+    connect_args={
+        "statement_cache_size": 0,
+        "prepared_statement_cache_size": 0,
+    },
 )
 
 # Async Session Factory
@@ -47,6 +51,7 @@ AsyncSessionLocal = async_sessionmaker(
     autocommit=False,
     autoflush=False,
 )
+async_session_factory = AsyncSessionLocal
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
